@@ -3,21 +3,30 @@ package com.infraleap.animatecss;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.CssImport;
 
-@HtmlImport("animate-css.html")
+@CssImport("./animate.css")
 public interface Animated extends HasStyle {
 
     default void animate(Animation anim){
         removeAnimations();
-        addClassName(anim.toString());
-        addClassName("animated");
+        addClassName("animate__"+anim.toString());
+        addClassName("animate__animated");
+    }
+
+    default void animate(Animation anim, Modifier mod){
+        animate(anim);
+        addClassName("animate__"+mod.toString());
     }
 
     default void removeAnimations(){
         for (Animation anim : Animation.values()) {
-            removeClassName(anim.toString());
+            removeClassName("animate__"+anim.toString());
         }
-        removeClassName("animated");
+        for (Modifier mod : Modifier.values()) {
+            removeClassName("animate__"+mod.toString());
+        }
+        removeClassName("animate__animated");
     }
 
     public enum Animation {
@@ -25,12 +34,22 @@ public interface Animated extends HasStyle {
         FLASH("flash"),
         PULSE("pulse"),
         RUBBER_BAND("rubberBand"),
-        SHAKE("shake"),
+        SHAKE_X("shakeX"),
+        SHAKE_Y("shakeY"),
+        HEADSHAKE("headShake"),
         SWING("swing"),
         TADA("tada"),
         WOBBLE("wobble"),
         JELLO("jello"),
         HEART_BEAT("heartBeat"),
+        BACK_IN_DOWN("backInDown"),
+        BACK_IN_LEFT("backInLeft"),
+        BACK_IN_RIGHT("backInRight"),
+        BACK_IN_UP("backInUp"),
+        BACK_OUT_DOWN("backOutDown"),
+        BACK_OUT_LEFT("backOutLeft"),
+        BACK_OUT_RIGHT("backOutRight"),
+        BACK_OUT_UP("backOutUp"),
         BOUNCE_IN("bounceIn"),
         BOUNCE_IN_DOWN("bounceInDown"),
         BOUNCE_IN_LEFT("bounceInLeft"),
@@ -50,6 +69,10 @@ public interface Animated extends HasStyle {
         FADE_IN_RIGHT_BIG("fadeInRightBig"),
         FADE_IN_UP("fadeInUp"),
         FADE_IN_UP_BIG("fadeInUpBig"),
+        FADE_IN_TOP_LEFT("fadeInTopLeft"),
+        FADE_IN_TOP_RIGHT("fadeInTopRight"),
+        FADE_IN_BOTTOM_LEFT("fadeInBottomLeft"),
+        FADE_IN_BOTTOM_RIGHT("fadeInBottomRight"),
         FADE_OUT("fadeOut"),
         FADE_OUT_DOWN("fadeOutDown"),
         FADE_OUT_DOWN_BIG("fadeOutDownBig"),
@@ -59,6 +82,10 @@ public interface Animated extends HasStyle {
         FADE_OUT_RIGHT_BIG("fadeOutRightBig"),
         FADE_OUT_UP("fadeOutUp"),
         FADE_OUT_UP_BIG("fadeOutUpBig"),
+        FADE_OUT_TOP_LEFT("fadeOutTopLeft"),
+        FADE_OUT_TOP_RIGHT("fadeOutTopRight"),
+        FADE_OUT_BOTTOM_LEFT("fadeOutBottomLeft"),
+        FADE_OUT_BOTTOM_RIGHT("fadeOutBottomRight"),
         FLIP("flip"),
         FLIP_IN_X("flipInX"),
         FLIP_IN_Y("flipInY"),
@@ -98,7 +125,7 @@ public interface Animated extends HasStyle {
         JACK_IN_THE_BOX("jackInTheBox"),
         ROLL_IN("rollIn"),
         ROLL_OUT("rollOut");
-        
+
         private final String classname;
         Animation(String classname){
             this.classname = classname;
@@ -108,4 +135,30 @@ public interface Animated extends HasStyle {
             return classname;
         }
     };
+
+    public enum Modifier {
+        INFINITE("infinite"),
+        REPEAT_1("repeat-1"),
+        REPEAT_2("repeat-2"),
+        REPEAT_3("repeat-3"),
+        DELAY_1S("delay-1s"),
+        DELAY_2S("delay-2s"),
+        DELAY_3S("delay-3s"),
+        DELAY_4S("delay-4s"),
+        DELAY_5S("delay-5s"),
+        FASTER("faster"),
+        FAST("fast"),
+        SLOW("slow"),
+        SLOWER("slower");
+
+        private final String classname;
+        Modifier(String classname){
+            this.classname = classname;
+        }
+
+        public String toString(){
+            return classname;
+        }
+    };
+
 }
