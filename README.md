@@ -1,23 +1,21 @@
 # Animate-CSS
 
-Vaadin 13 Java integration of
+Vaadin 14 Java integration of
 https://daneden.github.io/animate.css/
 
 ## Development instructions
 
-Starting the test/demo server:
+#### Installing the new API:
+Go to the `animate-css` subfolder and do
 ```
-mvn -Ptest clean package jar:test-jar
-java -cp target/animate-css-1.0-tests.jar:target/animate-css-1.0-jar-with-dependencies.jar com.infraleap.animatecss.demo.App
+mvn clean install
 ```
 
-This deploys demo at http://localhost:8080
+#### Starting the demo:
+Go to the `animate-css-demo` subfolder and do
 
-
-## Deploy instructions
-
-To upload to Vaadin Directory, creates a ZIP in the target directory
 ```
-mvn versions:set
-mvn -Pdirectory clean install
+mvn jetty:run
 ```
+
+Find the demo at http://localhost:8080 .
