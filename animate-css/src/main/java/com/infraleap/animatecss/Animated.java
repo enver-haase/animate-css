@@ -1,35 +1,45 @@
 package com.infraleap.animatecss;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasStyle;
-import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.CssImport;
 
 @CssImport("./animate.css")
 public interface Animated extends HasStyle {
 
     default void animate(Animation anim){
-        removeAnimations();
-        addClassName("animate__"+anim.toString());
-        addClassName("animate__animated");
+        animate(this, anim);
     }
 
     default void animate(Animation anim, Modifier mod){
-        animate(anim);
-        addClassName("animate__"+mod.toString());
+        animate(this, anim, mod);
     }
 
     default void removeAnimations(){
-        for (Animation anim : Animation.values()) {
-            removeClassName("animate__"+anim.toString());
-        }
-        for (Modifier mod : Modifier.values()) {
-            removeClassName("animate__"+mod.toString());
-        }
-        removeClassName("animate__animated");
+        removeAnimations(this);
     }
 
-    public enum Animation {
+    static void animate(HasStyle component, Animation anim){
+        removeAnimations(component);
+        component.addClassName("animate__"+anim.toString());
+        component.addClassName("animate__animated");
+    }
+
+    static void animate(HasStyle component, Animation anim, Modifier mod){
+        animate(component, anim);
+        component.addClassName("animate__"+mod.toString());
+    }
+
+    static void removeAnimations(HasStyle component){
+        for (Animation anim : Animation.values()) {
+            component.removeClassName("animate__"+anim.toString());
+        }
+        for (Modifier mod : Modifier.values()) {
+            component.removeClassName("animate__"+mod.toString());
+        }
+        component.removeClassName("animate__animated");
+    }
+
+    enum Animation {
         BOUNCE("bounce"),
         FLASH("flash"),
         PULSE("pulse"),
@@ -134,9 +144,9 @@ public interface Animated extends HasStyle {
         public String toString(){
             return classname;
         }
-    };
+    }
 
-    public enum Modifier {
+    enum Modifier {
         INFINITE("infinite"),
         REPEAT_1("repeat-1"),
         REPEAT_2("repeat-2"),
@@ -159,6 +169,6 @@ public interface Animated extends HasStyle {
         public String toString(){
             return classname;
         }
-    };
+    }
 
 }
