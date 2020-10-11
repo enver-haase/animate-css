@@ -1,5 +1,6 @@
 package com.infraleap.animatecss;
 
+import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.dependency.CssImport;
 
@@ -37,6 +38,28 @@ public interface Animated extends HasStyle {
             component.removeClassName("animate__"+mod.toString());
         }
         component.removeClassName("animate__animated");
+    }
+
+
+    static void animate(HasElement component, Animation anim){
+        removeAnimations(component);
+        component.getElement().getClassList().add("animate__"+anim.toString());
+        component.getElement().getClassList().add("animate__animated");
+    }
+
+    static void animate(HasElement component, Animation anim, Modifier mod){
+        animate(component, anim);
+        component.getElement().getClassList().add("animate__"+mod.toString());
+    }
+
+    static void removeAnimations(HasElement component){
+        for (Animation anim : Animation.values()) {
+            component.getElement().getClassList().remove("animate__"+anim.toString());
+        }
+        for (Modifier mod : Modifier.values()) {
+            component.getElement().getClassList().remove("animate__"+mod.toString());
+        }
+        component.getElement().getClassList().remove("animate__animated");
     }
 
     enum Animation {
