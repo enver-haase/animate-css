@@ -1,11 +1,13 @@
 # Animate-CSS
 
-Vaadin 14 Java integration of
-https://daneden.github.io/animate.css/
+Vaadin 25 Java integration of
+https://animate.style/
 
 ## Development instructions
 
-#### Installing the new API:
+Requires Java 21+.
+
+#### Installing the add-on:
 Go to the `animate-css` subfolder and do
 ```
 mvn clean install
@@ -15,7 +17,7 @@ mvn clean install
 Go to the `animate-css-demo` subfolder and do
 
 ```
-mvn jetty:run
+mvn spring-boot:run
 ```
 
 Find the demo at http://localhost:8080 .
