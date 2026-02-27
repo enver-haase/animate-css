@@ -4,6 +4,6 @@ package-lock.json
 package.json
 tsconfig.json
 types.d.ts
-src/main/frontend/generated/
-src/main/bundles/
+**/src/main/frontend/
+**/bundles/
 .playwright-mcp/
